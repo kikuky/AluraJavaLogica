@@ -1,0 +1,29 @@
+<meta charset = "UTF-8">
+
+
+<h1> Gerações Brasil </h1>
+
+<script>
+
+	function pulaLinha() {
+
+		document.write("<br>");
+
+	}
+
+	function mostra(msg) {
+	
+		document.write(msg);
+		pulaLinha();
+	
+	}
+
+	var anos = 2020 - 1500;
+	var geracoes = Math.round(anos/28);
+
+	mostra("De 1500 até 2020, passaram-se " + anos + " anos.");
+	mostra("Então, desde 1500, aproximadamente, " + geracoes + " gerações passaram por aqui.");
+	
+
+
+</script>

@@ -1,0 +1,35 @@
+<meta charset = "UTF-8">
+
+<h1> Idade </h1>
+
+<script>
+
+	function pulaLinha() {
+
+		document.write ("<br>");
+
+	}
+
+	function mostra(texto){
+
+		document.write(texto);
+		pulaLinha();
+	}
+
+	var ano = 2020;
+
+	var idadeJoaquim = (ano - 1995);
+	var idadeRoberto = (ano - 1998);
+	var idadeTiburcio = (ano - 1997);
+
+	media = ((idadeJoaquim + idadeRoberto + idadeTiburcio)/3);
+
+	mostra("Joaquim tem " + (ano - 1995) + " anos.");
+
+	mostra("Roberto tem  " + (ano - 1998) + " anos.");
+
+	mostra("Tibúrcio tem  " + (ano - 1997) + " anos.");
+
+	mostra("A média das idades é " + Math.round(media) + ".");
+
+</script>

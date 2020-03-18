@@ -1,0 +1,156 @@
+<canvas width = "600" height = "400"></canvas>
+
+<script>
+	
+	var tela = document.querySelector ('canvas');
+	var pincel = tela.getContext('2d');
+
+	pincel.fillStyle = 'white';
+	pincel.fillRect(0, 0, 600, 400);
+	pincel.strokeStyle = 'black';
+	pincel.strokeRect(0, 0, 600, 400);
+
+	a = Math.round(Math.random()*600);
+	b = Math.round(Math.random()*400);
+	
+	var x = 20;
+	var y = 20;
+	
+	var raio = 10;
+	
+	var sentidox = 0;
+	var sentidoy = 0;
+	
+	var esquerda = 37;
+    var cima = 38;
+    var direita = 39;
+    var baixo = 40;
+	
+	var pontos = 0;
+	
+	
+	function cobrinha(x, y, raio){
+		
+		
+		pincel.fillStyle = 'black';
+		pincel.beginPath();
+		pincel.arc(x, y, raio, 0, 2*Math.PI);
+		pincel.fill();
+		
+	}
+	
+	
+	function pontuacao() {
+		
+		var tela = document.querySelector('canvas');
+		var pincel = tela.getContext('2d');
+	
+		pincel.font = '15px Georgia';
+		pincel.fillStyle = 'black';
+		pincel.fillText('Highscore: ' + pontos, 250, 20);
+	
+	}
+	
+	function alvo(a, b){
+	
+		pincel.fillStyle = 'red';
+		pincel.beginPath();
+		pincel.arc(a, b, raio, 0, 2*Math.PI);
+		pincel.fill();
+	
+	}
+	
+	function limpaTela(){
+	
+		pincel.clearRect(0, 0, 600, 400);
+		pincel.strokeStyle = 'black';
+		pincel.strokeRect(0, 0, 600, 400);
+	
+	}	
+		
+	function atualizaTela(){
+		
+		limpaTela();
+		mudaPosicao();
+		pontuacao();
+		cobrinha(x, y, raio);
+		alvo(a, b);
+
+		x = x + sentidox;
+		y = y + sentidoy;
+		
+		if (x > 600) {
+
+			x = 20;
+
+		}		
+		
+		if (x < 0) {
+
+			x = 600;
+
+		}	
+		
+		if (y < 0) {
+
+			y = 400;
+
+		}	
+		
+		if (y > 400) {
+
+			y = 20;
+
+		}
+		
+	}	
+	
+	function mudaPosicao(){
+	
+		if ((x >= a - 2*raio) && (x <= a + 2*raio) && (y >= b - 2*raio) && (y <= b + 2*raio)){
+		
+			a = Math.round(Math.random()*600);
+			b = Math.round(Math.random()*400);
+			pontos = pontos+50;
+		}
+	}
+	
+	function teclaPressionada(evento) {
+	
+		if (evento.keyCode == direita){
+		
+			sentidox = 1;
+			sentidoy = 0;
+		
+		}
+		
+		if (evento.keyCode == esquerda){
+		
+			sentidox = -1;
+			sentidoy = 0;
+		
+		}
+		
+		if (evento.keyCode == cima){
+		
+			sentidox = 0;
+			sentidoy = -1;
+		
+		}
+		
+		if (evento.keyCode == baixo){
+		
+			sentidox = 0;
+			sentidoy = 1;
+		
+		}
+		
+	}
+	
+			
+		setInterval(atualizaTela, 1);
+		document.onkeydown = teclaPressionada;
+		
+		
+	
+</script>

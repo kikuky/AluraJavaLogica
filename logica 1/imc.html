@@ -1,0 +1,101 @@
+<meta charset = "UTF-8">
+
+<h1>Cálculo IMC</h1>
+
+<script>
+
+	function pulaLinha() {
+	
+		document.write("<br>");
+	
+	}
+
+	function mostra(msg) {
+	
+		document.write (msg);
+		pulaLinha();
+	
+	}
+	
+	function calculaImc(peso, altura) {
+	
+		var imc = peso/(altura*altura);
+		
+		mostra(nome +  ", o seu IMC é igual a " + imc + ".");
+		
+	if (imc <= 10) {
+	
+		resultado = "Desnutrição Grau V.";
+	
+	}
+	
+	if (imc >= 10 && imc <= 12.9) {
+	
+		resultado = "Desnutrição Grau IV.";
+	
+	}
+	
+	if (imc >= 13 && imc <= 15.9) {
+	
+		resultado = "Desnutrição Grau III.";
+	
+	}
+	
+	if (imc >= 16 && imc <= 16.9) {
+	
+		resultado = "Desnutrição Grau II.";
+	
+	}
+	
+	if (imc >= 17 && imc <= 18.4) {
+	
+		resultado = "Desnutrição Grau I.";
+	
+	}
+	
+	if (imc >= 18.5 && imc <= 24.9) {
+	
+		resultado = "Normal.";
+	
+	}
+	
+	if (imc >= 25 && imc <= 29.9) {
+	
+		resultado = "Pré-obeso.";
+	
+	}
+	
+	if (imc >= 30 && imc <= 34.5) {
+	
+		resultado = "Obesidade Grau I.";
+	
+	}
+	
+	if (imc >= 35 && imc <= 39.9) {
+	
+		resultado = "Obesidade Grau II.";
+	
+	}
+	
+	if (imc >= 40) {
+	
+		resultado = "Obesidade Grau III.";
+	
+	}
+	}
+	
+	var nome = prompt("Olá, você poderia me informar o seu nome? ");
+	var idade = prompt("Certo, " + nome + ", agora eu gostaria de saber a sua idade: ");
+	
+	alert("Muito bem, " + nome + "! Para a realização do cálculo do seu IMC, vou precisar da sua altura e do seu peso.");
+	
+	var altura = parseFloat(prompt("Informe a sua altura:"));
+	var peso = parseInt(prompt("Informe o seu peso: "));
+	
+	var resultado;
+	var soma = (peso + altura);
+	
+	calculaImc(peso, altura);
+	
+	mostra("Resultado: " + "<big>" + resultado + "</big>");
+</script>
