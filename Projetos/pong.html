@@ -1,0 +1,207 @@
+<canvas width = "600" height = "400"></canvas>
+
+
+<script>
+
+	var tela = document.querySelector('canvas');
+	var pincel = tela.getContext('2d');
+
+	pincel.fillStyle = 'black';
+	pincel.fillRect(0, 0, 600, 400);
+	
+	var raioBolinha = 10;
+	
+	var posicaoBolinhaX = 290;
+	var posicaoBolinhaY = 190;
+	
+	var sentidoBolinhaX = 1;
+	var sentidoBolinhaY = 1;
+	
+	var alturaRaqueteInicial = 195;
+	
+	var raqueteEsquerdaX = 10;
+	var raqueteEsquerdaY = alturaRaqueteInicial;
+	
+	
+	var raqueteDireitaX = 585;
+	var raqueteDireitaY = alturaRaqueteInicial;
+	
+	var setaParaCima = 38;
+    var setaParaBaixo = 40;
+	
+	var sentidoRaqueteEsquerda = 0;
+	var alturaRaquete = 70;
+	var larguraRaquete = 5;
+	
+	var pontuacaoEsquerda = 0;
+	var pontuacaoDireita = 0;
+	
+	var pontuacaoCor = 'white';
+	var pontuacaoLetra = '35px Georgia';
+	var pontuacaoAltura = 30;
+	
+	function bolinha(posicaoBolinhaX, posicaoBolinhaY, raioBolinha){
+	
+		pincel.fillStyle = 'white';
+		pincel.beginPath();
+		pincel.arc(posicaoBolinhaX, posicaoBolinhaY, raioBolinha, 0, 2*Math.PI);
+		pincel.fill();
+	
+	}
+	
+	function raqueteEsquerda(raqueteEsquerdaX, raqueteEsquerdaY){
+	
+		pincel.fillStyle = 'white';
+		pincel.fillRect(raqueteEsquerdaX, raqueteEsquerdaY, larguraRaquete, alturaRaquete);
+		
+	}
+	
+	function raqueteDireita(raqueteDireitaX, raqueteDireitaY){
+		
+		
+		pincel.fillStyle = 'white';
+		pincel.fillRect(raqueteDireitaX, raqueteDireitaY, larguraRaquete, alturaRaquete);
+		
+	}
+	
+	function limpaTela(){
+	
+		pincel.clearRect(0, 0, 600, 400);
+		pincel.fillStyle = 'black';
+		pincel.fillRect(0, 0, 600, 400);
+	
+	}
+	
+	function bateVolta () {
+	
+		if (posicaoBolinhaY == 400){
+		
+			sentidoBolinhaY = -1;
+		}
+		
+		if (posicaoBolinhaX == 600){
+		
+			sentidoBolinhaX = -1;
+		}
+		
+		if (posicaoBolinhaY == 0){
+		
+			sentidoBolinhaY = 1;
+		}
+		
+		if (posicaoBolinhaX == 0){
+		
+			sentidoBolinhaX = 1;
+		}
+	
+	}
+	
+	function bateRaquete () {
+	
+		if (
+		posicaoBolinhaX == (raqueteDireitaX-3) 
+		&& posicaoBolinhaY >= (raqueteDireitaY - alturaRaquete/2) 
+		//|| posicaoBolinhaY <= (raqueteDireitaY + alturaRaquete/2)
+		)
+		
+		{
+			
+			sentidoBolinhaX = -1;
+	
+		}
+		
+		if (
+		
+		posicaoBolinhaX == (raqueteEsquerdaX) 
+		&& posicaoBolinhaY <= (raqueteEsquerdaY - alturaRaquete/2)
+				
+		)
+		
+		{
+
+			//sentidoBolinhaY = 1;
+			sentidoBolinhaX = 1;
+	
+		}		
+		
+	}
+	
+	function marcaPonto(){
+	
+		if (posicaoBolinhaX == 600){
+		
+			pontuacaoEsquerda++;
+		
+		}
+		
+		if (posicaoBolinhaX == 0){
+		
+			pontuacaoDireita++;
+		
+		}
+	}
+	
+	function pontuacao(){
+	
+		var tela = document.querySelector('canvas');
+		var pincel = tela.getContext('2d');
+	
+		pincel.font = pontuacaoLetra;
+		pincel.fillStyle = pontuacaoCor;
+		pincel.fillText(pontuacaoEsquerda, 100, pontuacaoAltura);
+		
+		pincel.font = pontuacaoLetra;
+		pincel.fillStyle = pontuacaoCor;
+		pincel.fillText(pontuacaoDireita, 500, pontuacaoAltura);
+		
+	
+	}
+	
+	function movimentaRaqueteEsquerda (evento) {
+		
+		
+		raqueteEsquerdaY = raqueteEsquerdaY + sentidoRaqueteEsquerda;
+		
+		
+		if (evento.keyCode == setaParaCima) {
+
+			sentidoRaqueteEsquerda = -10;
+	
+		}	
+
+		if (evento.keyCode == setaParaBaixo) {
+
+			sentidoRaqueteEsquerda = 10;
+		}
+		
+	
+		
+	}
+	
+	function movimentaRaqueteDireita() {
+	
+		raqueteDireitaY = posicaoBolinhaY-35;
+	
+	}
+	
+	function rodando(){
+	
+		limpaTela();
+		bolinha(posicaoBolinhaX, posicaoBolinhaY, raioBolinha);
+		raqueteEsquerda(raqueteEsquerdaX, raqueteEsquerdaY);
+		raqueteDireita(raqueteDireitaX, raqueteDireitaY);
+		bateVolta();
+		bateRaquete();
+		movimentaRaqueteDireita();
+		pontuacao();
+		marcaPonto();
+	
+		posicaoBolinhaX = posicaoBolinhaX + sentidoBolinhaX;
+		posicaoBolinhaY = posicaoBolinhaY + sentidoBolinhaY;
+	
+	}
+	
+	setInterval(rodando, 1);
+	document.onkeydown = movimentaRaqueteEsquerda;
+
+</script>
